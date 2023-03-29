@@ -59,9 +59,9 @@ export class UsersController {
   updateProfile(
     @CurrentUser('id') id: number,
     @Body() dto: UpdateUserDto,
-    @UploadedFile() file: Express.Multer.File,
+    @UploadedFile() file?: Express.Multer.File,
   ) {
-    return this.usersService.updateProfile(id, dto, file.filename);
+    return this.usersService.updateProfile(id, dto, file?.filename);
   }
 
   @Get(':img')

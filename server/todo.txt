@@ -1,5 +1,21 @@
-+------------- USERS SERVICE -------------+
++------------- USERS -------------+
 [X] - Give Role | ADMIN
 [X] - Delete User | ADMIN
 [X] - Get profile
 [X] - Update Profile (upload image)
+
++------------- CATEGORIES -------------+
+[X] - GET ALL
+[X] - GET BY ID
+[X] - CREATE
+[X] - UPDATE
+[X] - DELETE
+
+
++------------- ADVERTISEMENTS -------------+
+[ ] - GET ALL
+[ ] - GET ONE
+[ ] - CREATE
+[ ] - UPDATE
+[ ] - DELETE
+[ ] - GET BY CATEGORY (other sort)

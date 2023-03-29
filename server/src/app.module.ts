@@ -6,6 +6,8 @@ import { AuthModule } from './auth/auth.module';
 import { PassportModule } from '@nestjs/passport';
 import { JwtStrategy } from './auth/strategy/jwt.strategy';
 import { MulterModule } from '@nestjs/platform-express';
+import { AdvertisementsModule } from './advertisements/advertisements.module';
+import { CategoriesModule } from './categories/categories.module';
 
 @Module({
   imports: [
@@ -16,6 +18,8 @@ import { MulterModule } from '@nestjs/platform-express';
     PassportModule,
     UsersModule,
     AuthModule,
+    AdvertisementsModule,
+    CategoriesModule,
   ],
   controllers: [],
   providers: [PrismaService, JwtStrategy],
