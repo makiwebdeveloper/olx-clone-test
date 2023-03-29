@@ -1,2 +1,5 @@
-[] - Give Role
-[] - Update Profile
++------------- USERS SERVICE -------------+
+[X] - Give Role | ADMIN
+[X] - Delete User | ADMIN
+[X] - Get profile
+[X] - Update Profile (upload image)
