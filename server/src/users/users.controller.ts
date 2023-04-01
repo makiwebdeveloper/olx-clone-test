@@ -64,11 +64,6 @@ export class UsersController {
     return this.usersService.updateProfile(id, dto, file?.filename);
   }
 
-  @Get(':img')
-  seeUploadedFile(@Param('img') image, @Res() res) {
-    return res.sendFile(image, { root: 'uploads' });
-  }
-
   @Roles('ADMIN')
   @UseGuards(JwtAuthGuard, RolesGuard)
   @Delete('/:userId')

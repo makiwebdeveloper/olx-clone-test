@@ -31,7 +31,7 @@ export class CategoriesService {
   async update(dto: UpdateCategoryDto) {
     return this.prisma.category.update({
       where: {
-        id: +dto.id,
+        id: dto.id,
       },
       data: {
         name: dto.name,

@@ -1,9 +1,9 @@
-import { IsString } from 'class-validator';
+import { IsNumber, IsString } from 'class-validator';
 
 export class UpdateCategoryDto {
   @IsString()
   name: string;
 
-  @IsString()
-  id: string;
+  @IsNumber()
+  id: number;
 }

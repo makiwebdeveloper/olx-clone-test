@@ -50,6 +50,6 @@ export class CategoriesController {
   @UseGuards(JwtAuthGuard, RolesGuard)
   @Delete()
   deleteCategory(@Body() dto: DeleteCategoryDto) {
-    return this.categoriesService.delete(+dto.id);
+    return this.categoriesService.delete(dto.id);
   }
 }

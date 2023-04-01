@@ -62,7 +62,7 @@ export class UsersService {
   }
 
   async giveRole(dto: GiveRoleDto) {
-    const user = await this.findById(+dto.userId);
+    const user = await this.findById(dto.userId);
 
     const roles = user.roles.includes(dto.role)
       ? user.roles
@@ -70,7 +70,7 @@ export class UsersService {
 
     return await this.prisma.user.update({
       where: {
-        id: +dto.userId,
+        id: dto.userId,
       },
       data: {
         roles,

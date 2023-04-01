@@ -4,6 +4,7 @@
 [X] - Get profile
 [X] - Update Profile (upload image)
 
+
 +------------- CATEGORIES -------------+
 [X] - GET ALL
 [X] - GET BY ID
@@ -11,11 +12,11 @@
 [X] - UPDATE
 [X] - DELETE
 
-
 +------------- ADVERTISEMENTS -------------+
-[ ] - GET ALL
-[ ] - GET ONE
-[ ] - CREATE
-[ ] - UPDATE
-[ ] - DELETE
-[ ] - GET BY CATEGORY (other sort)
+[X] - GET ALL
+[X] - GET ONE
+[X] - CREATE
+[X] - UPDATE
+[X] - DELETE
+[X] - SEARCH & PAGINATION
+[X] - UPLOAD IMAGES

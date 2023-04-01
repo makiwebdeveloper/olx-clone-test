@@ -1,6 +1,6 @@
 import { IsNumber } from 'class-validator';
 
-export class DeleteCategoryDto {
+export class DeleteAdvertisementDto {
   @IsNumber()
   id: number;
 }

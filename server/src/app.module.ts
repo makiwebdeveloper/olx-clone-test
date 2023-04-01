@@ -8,6 +8,8 @@ import { JwtStrategy } from './auth/strategy/jwt.strategy';
 import { MulterModule } from '@nestjs/platform-express';
 import { AdvertisementsModule } from './advertisements/advertisements.module';
 import { CategoriesModule } from './categories/categories.module';
+import { PaginationModule } from './pagination/pagination.module';
+import { AppController } from './app.controler';
 
 @Module({
   imports: [
@@ -20,8 +22,9 @@ import { CategoriesModule } from './categories/categories.module';
     AuthModule,
     AdvertisementsModule,
     CategoriesModule,
+    PaginationModule,
   ],
-  controllers: [],
+  controllers: [AppController],
   providers: [PrismaService, JwtStrategy],
 })
 export class AppModule {}
