@@ -1,0 +1,29 @@
++------------- USERS -------------+
+[X] - Give Role | ADMIN
+[X] - Delete User | ADMIN
+[X] - Get profile
+[X] - Update Profile (upload image)
+
+
++------------- CATEGORIES -------------+
+[X] - GET ALL
+[X] - GET BY ID
+[X] - CREATE
+[X] - UPDATE
+[X] - DELETE
+
++------------- ADVERTISEMENTS -------------+
+[X] - GET ALL
+[X] - GET ONE
+[X] - CREATE
+[X] - UPDATE
+[X] - DELETE
+[X] - SEARCH & PAGINATION
+[X] - UPLOAD IMAGES
+
++------------- Reviews -------------+
+[ ] - GET ALL (ADMIN)
+[X] - GET BY ID
+[X] - CREATE
+[X] - UPDATE
+[X] - DELETE
