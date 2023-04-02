@@ -1,6 +1,6 @@
-import { Injectable } from '@nestjs/common';
-import { BadRequestException } from '@nestjs/common/exceptions';
-import { Prisma } from '@prisma/client';
+import { HttpStatus, Injectable } from '@nestjs/common';
+import { BadRequestException, HttpException } from '@nestjs/common/exceptions';
+import { Advertisement, Prisma } from '@prisma/client';
 import { PaginationService } from 'src/pagination/pagination.service';
 import { PrismaService } from 'src/prisma.service';
 import { CreateAdvertisementDto } from './dto/create-advertisement.dto';
@@ -10,12 +10,14 @@ import {
   GetAllAdvertisementsDto,
 } from './dto/get-all-advertisements.dto';
 import { UpdateAdvertisementDto } from './dto/update-advertisement.dto';
+import { UsersService } from 'src/users/users.service';
 
 @Injectable()
 export class AdvertisementsService {
   constructor(
     private prisma: PrismaService,
     private paginationService: PaginationService,
+    private usersService: UsersService,
   ) {}
 
   async getAll(dto: GetAllAdvertisementsDto = {}) {
@@ -75,14 +77,19 @@ export class AdvertisementsService {
   }
 
   async getById(id: number) {
-    return this.prisma.advertisement.findUnique({
+    const advertisement = await this.prisma.advertisement.findUnique({
       where: {
         id,
       },
     });
+
+    return advertisement;
   }
 
-  async create(userId: number, dto: CreateAdvertisementDto) {
+  async create(
+    userId: number,
+    dto: CreateAdvertisementDto,
+  ): Promise<Advertisement> {
     return this.prisma.advertisement.create({
       data: {
         ...dto,
@@ -114,12 +121,16 @@ export class AdvertisementsService {
 
   async delete(userId: number, dto: DeleteAdvertisementDto) {
     const advertisement = await this.getById(dto.id);
-    if (advertisement.userId !== userId) throw new BadRequestException();
+    const user = await this.usersService.findById(userId);
 
-    return this.prisma.advertisement.delete({
-      where: {
-        id: dto.id,
-      },
-    });
+    if (advertisement.userId === userId || user.roles.includes('ADMIN')) {
+      return this.prisma.advertisement.delete({
+        where: {
+          id: dto.id,
+        },
+      });
+    } else {
+      throw new HttpException('No access', HttpStatus.FORBIDDEN);
+    }
   }
 }

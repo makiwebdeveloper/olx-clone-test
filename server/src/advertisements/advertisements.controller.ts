@@ -10,6 +10,7 @@ import {
   Query,
   UseInterceptors,
   UploadedFiles,
+  HttpCode,
 } from '@nestjs/common';
 import { JwtAuthGuard } from 'src/auth/decorators/jwt.guard';
 import { CurrentUser } from 'src/auth/decorators/user.decorator';
@@ -38,6 +39,7 @@ export class AdvertisementsController {
     return this.advertisementsService.getById(Number(id));
   }
 
+  @HttpCode(200)
   @UseGuards(JwtAuthGuard)
   @Post()
   createAdvertisement(
@@ -47,6 +49,8 @@ export class AdvertisementsController {
     return this.advertisementsService.create(userId, dto);
   }
 
+  @HttpCode(200)
+  @UseGuards(JwtAuthGuard)
   @UseInterceptors(
     FilesInterceptor('images', 4, {
       storage: diskStorage({
@@ -56,7 +60,6 @@ export class AdvertisementsController {
       fileFilter: imageFileFilter,
     }),
   )
-  @UseGuards(JwtAuthGuard)
   @Put()
   updateAdvertisement(
     @CurrentUser('id') userId: number,
@@ -67,6 +70,7 @@ export class AdvertisementsController {
     return this.advertisementsService.update(userId, dto, filenames);
   }
 
+  @HttpCode(200)
   @UseGuards(JwtAuthGuard)
   @Delete()
   deleteAdvertisement(

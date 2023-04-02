@@ -22,7 +22,8 @@ model User {
   phone      String   @default("")
   roles      String[] @default(["USER"])
 
-  advertisements Advertisement[]
+  advertisements Advertisement[] @relation("advertisements")
+  favorites      Advertisement[]
 }
 
 model Advertisement {
@@ -36,8 +37,11 @@ model Advertisement {
   images      String[]
   category    Category @relation(fields: [categoryId], references: [id])
   categoryId  Int      @map("category_id")
-  user        User?    @relation(fields: [userId], references: [id])
-  userId      Int?     @map("user_id")
+
+  user   User? @relation(name: "advertisements", fields: [userId], references: [id])
+  userId Int?  @map("user_id")
+
+  favorites User[]
 }
 
 model Category {

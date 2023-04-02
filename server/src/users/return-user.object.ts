@@ -1,7 +1,17 @@
-import { User } from '@prisma/client';
+import { Advertisement, User } from '@prisma/client';
 
-export const returnUserObject = (user: User) => {
-  const { password, ...restUser } = user;
+export type UserWithFavorites = User & {
+  favorites: Advertisement[];
+};
 
-  return restUser;
+export const UserSelect = {
+  id: true,
+  createdAt: true,
+  updatedAt: true,
+  email: true,
+  name: true,
+  avatarPath: true,
+  phone: true,
+  roles: true,
+  favorites: true,
 };

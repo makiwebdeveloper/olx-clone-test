@@ -10,6 +10,7 @@ import {
   Param,
   UploadedFile,
   Res,
+  HttpCode,
 } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { diskStorage } from 'multer';
@@ -21,6 +22,7 @@ import { editFileName, imageFileFilter } from 'src/utils/file-upload.utils';
 import { GiveRoleDto } from './dto/give-role.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { UsersService } from './users.service';
+import { ToggleFavoriteDto } from './dto/toggle-favorite.dto';
 
 @Controller('users')
 export class UsersController {
@@ -45,6 +47,7 @@ export class UsersController {
     return this.usersService.getProfile(+id);
   }
 
+  @HttpCode(200)
   @UseGuards(JwtAuthGuard)
   @Put('/profile')
   @UseInterceptors(
@@ -64,6 +67,7 @@ export class UsersController {
     return this.usersService.updateProfile(id, dto, file?.filename);
   }
 
+  @HttpCode(200)
   @Roles('ADMIN')
   @UseGuards(JwtAuthGuard, RolesGuard)
   @Delete('/:userId')
@@ -71,10 +75,22 @@ export class UsersController {
     return this.usersService.deleteUser(+userId);
   }
 
+  @HttpCode(200)
   @Roles('ADMIN')
   @UseGuards(JwtAuthGuard, RolesGuard)
   @Post('/role')
   giveRole(@Body() dto: GiveRoleDto) {
     return this.usersService.giveRole(dto);
+  }
+
+  @HttpCode(200)
+  @Put('/favorites')
+  @UseGuards(JwtAuthGuard)
+  toggleFavorite(
+    @CurrentUser('id') id: number,
+    @Body() dto: ToggleFavoriteDto,
+  ) {
+    console.log('advertisement ID', dto.advertisementId);
+    return this.usersService.toggleFavorite(id, dto.advertisementId);
   }
 }

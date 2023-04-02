@@ -7,6 +7,7 @@ import {
   UseGuards,
   Param,
   Body,
+  HttpCode,
 } from '@nestjs/common';
 import { JwtAuthGuard } from 'src/auth/decorators/jwt.guard';
 import { Roles } from 'src/auth/decorators/roles.decorator';
@@ -32,6 +33,7 @@ export class CategoriesController {
     return this.categoriesService.getById(+id);
   }
 
+  @HttpCode(200)
   @Roles('ADMIN')
   @UseGuards(JwtAuthGuard, RolesGuard)
   @Post()
@@ -39,6 +41,7 @@ export class CategoriesController {
     return this.categoriesService.create(dto);
   }
 
+  @HttpCode(200)
   @Roles('ADMIN')
   @UseGuards(JwtAuthGuard, RolesGuard)
   @Put()
@@ -46,6 +49,7 @@ export class CategoriesController {
     return this.categoriesService.update(dto);
   }
 
+  @HttpCode(200)
   @Roles('ADMIN')
   @UseGuards(JwtAuthGuard, RolesGuard)
   @Delete()

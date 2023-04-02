@@ -8,11 +8,16 @@ import { UpdateCategoryDto } from './dto/update-category.dto';
 export class CategoriesService {
   constructor(private prisma: PrismaService) {}
 
-  async getAll(): Promise<Category[]> {
-    return this.prisma.category.findMany();
+  async getAll() {
+    const categories = await this.prisma.category.findMany();
+
+    return {
+      categories,
+      length: categories.length,
+    };
   }
 
-  async getById(id: number): Promise<Category> {
+  async getById(id: number) {
     return this.prisma.category.findUnique({
       where: {
         id,

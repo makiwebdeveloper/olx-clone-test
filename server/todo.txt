@@ -20,3 +20,10 @@
 [X] - DELETE
 [X] - SEARCH & PAGINATION
 [X] - UPLOAD IMAGES
+
++------------- Reviews -------------+
+[ ] - GET ALL (ADMIN)
+[X] - GET BY ID
+[X] - CREATE
+[X] - UPDATE
+[X] - DELETE

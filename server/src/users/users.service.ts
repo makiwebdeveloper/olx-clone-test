@@ -1,28 +1,34 @@
 import { BadRequestException, Injectable } from '@nestjs/common';
-import { User } from '@prisma/client';
+import { Prisma, User } from '@prisma/client';
 import { PrismaService } from 'src/prisma.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { hash } from 'argon2';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { GiveRoleDto } from './dto/give-role.dto';
+import { UserSelect, UserWithFavorites } from './return-user.object';
 
 @Injectable()
 export class UsersService {
   constructor(private prisma: PrismaService) {}
 
-  async createUser(dto: CreateUserDto): Promise<User> {
+  async createUser(dto: CreateUserDto) {
     const user = await this.prisma.user.create({
       data: {
         email: dto.email,
         password: await hash(dto.password),
+        // roles: ['ADMIN', 'USER'],
       },
     });
 
     return user;
   }
 
-  async getAllUsers(): Promise<User[]> {
-    return this.prisma.user.findMany();
+  async getAllUsers() {
+    return await this.prisma.user.findMany({
+      select: {
+        ...UserSelect,
+      },
+    });
   }
 
   async getProfile(id: number) {
@@ -48,9 +54,12 @@ export class UsersService {
         phone: dto.phone,
         avatarPath,
       },
+      include: {
+        favorites: true,
+      },
     });
 
-    return updatedUser;
+    return this.returnUserFields(updatedUser);
   }
 
   async deleteUser(id: number) {
@@ -78,12 +87,42 @@ export class UsersService {
     });
   }
 
-  async findById(id: number): Promise<User> {
-    return this.prisma.user.findUnique({ where: { id } });
+  async toggleFavorite(userId: number, advertisementId: number) {
+    const user = await this.findById(userId);
+
+    return await this.prisma.user.update({
+      where: { id: userId },
+      data: {
+        favorites: {
+          [user.favorites.some((item) => item.id === advertisementId)
+            ? 'disconnect'
+            : 'connect']: {
+            id: advertisementId,
+          },
+        },
+      },
+      include: {
+        favorites: true,
+      },
+    });
   }
 
-  async findByEmail(email: string): Promise<User> {
-    return this.prisma.user.findUnique({ where: { email } });
+  async findById(id: number): Promise<UserWithFavorites> {
+    const user = await this.prisma.user.findUnique({
+      where: { id },
+      include: {
+        favorites: true,
+      },
+    });
+
+    return user;
+  }
+
+  async findByEmail(email: string): Promise<UserWithFavorites> {
+    return this.prisma.user.findUnique({
+      where: { email },
+      include: { favorites: true },
+    });
   }
 
   returnUserFields(user: User) {
