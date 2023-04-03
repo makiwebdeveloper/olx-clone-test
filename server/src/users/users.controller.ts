@@ -23,6 +23,7 @@ import { GiveRoleDto } from './dto/give-role.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { UsersService } from './users.service';
 import { ToggleFavoriteDto } from './dto/toggle-favorite.dto';
+import { DeleteUserDto } from './dto/delete-user.dto';
 
 @Controller('users')
 export class UsersController {
@@ -70,9 +71,9 @@ export class UsersController {
   @HttpCode(200)
   @Roles('ADMIN')
   @UseGuards(JwtAuthGuard, RolesGuard)
-  @Delete('/:userId')
-  deleteUser(@Param('userId') userId: string) {
-    return this.usersService.deleteUser(+userId);
+  @Delete()
+  deleteUser(@Body() dto: DeleteUserDto) {
+    return this.usersService.deleteUser(dto.id);
   }
 
   @HttpCode(200)
