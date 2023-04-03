@@ -22,7 +22,7 @@ export class AuthService {
     const tokens = await this.issueTokens(user);
 
     return {
-      user: this.usersService.returnUserFields(user),
+      user: await this.usersService.returnUserFields(user.id),
       ...tokens,
     };
   }
@@ -32,7 +32,7 @@ export class AuthService {
     const tokens = await this.issueTokens(user);
 
     return {
-      user: this.usersService.returnUserFields(user),
+      user: await this.usersService.returnUserFields(user.id),
       ...tokens,
     };
   }
@@ -45,7 +45,7 @@ export class AuthService {
     const tokens = await this.issueTokens(user);
 
     return {
-      user: this.usersService.returnUserFields(user),
+      user: await this.usersService.returnUserFields(user.id),
       ...tokens,
     };
   }

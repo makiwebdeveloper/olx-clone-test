@@ -41,12 +41,23 @@ export class AdvertisementsController {
 
   @HttpCode(200)
   @UseGuards(JwtAuthGuard)
+  @UseInterceptors(
+    FilesInterceptor('images', 4, {
+      storage: diskStorage({
+        destination: './uploads',
+        filename: editFileName,
+      }),
+      fileFilter: imageFileFilter,
+    }),
+  )
   @Post()
   createAdvertisement(
     @CurrentUser('id') userId: number,
     @Body() dto: CreateAdvertisementDto,
+    @UploadedFiles() files?: Array<Express.Multer.File>,
   ) {
-    return this.advertisementsService.create(userId, dto);
+    const filenames: string[] = files.map((file) => file.filename);
+    return this.advertisementsService.create(userId, dto, filenames);
   }
 
   @HttpCode(200)

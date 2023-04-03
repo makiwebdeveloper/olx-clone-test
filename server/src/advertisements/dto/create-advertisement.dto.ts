@@ -1,4 +1,11 @@
-import { IsNumber, IsOptional, IsString, MinLength } from 'class-validator';
+import {
+  IsNumber,
+  IsOptional,
+  IsString,
+  MinLength,
+  Validate,
+} from 'class-validator';
+import { IsNumberOrString } from 'src/utils/string-or-number.validator';
 
 export class CreateAdvertisementDto {
   @IsString()
@@ -8,9 +15,9 @@ export class CreateAdvertisementDto {
   @IsOptional()
   description?: string;
 
-  @IsNumber()
-  price: number;
+  @Validate(IsNumberOrString)
+  price: number | string;
 
-  @IsNumber()
-  categoryId: number;
+  @Validate(IsNumberOrString)
+  categoryId: number | string;
 }

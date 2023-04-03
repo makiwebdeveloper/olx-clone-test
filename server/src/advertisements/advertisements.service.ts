@@ -11,6 +11,7 @@ import {
 } from './dto/get-all-advertisements.dto';
 import { UpdateAdvertisementDto } from './dto/update-advertisement.dto';
 import { UsersService } from 'src/users/users.service';
+import { ReturnAdvertisementSelect } from './return-advertisement.object';
 
 @Injectable()
 export class AdvertisementsService {
@@ -66,6 +67,7 @@ export class AdvertisementsService {
       orderBy: prismaSort,
       skip,
       take: perPage,
+      select: ReturnAdvertisementSelect,
     });
 
     return {
@@ -81,6 +83,7 @@ export class AdvertisementsService {
       where: {
         id,
       },
+      select: ReturnAdvertisementSelect,
     });
 
     return advertisement;
@@ -89,12 +92,18 @@ export class AdvertisementsService {
   async create(
     userId: number,
     dto: CreateAdvertisementDto,
-  ): Promise<Advertisement> {
+    filenames: string[] = [],
+  ) {
     return this.prisma.advertisement.create({
       data: {
-        ...dto,
+        title: dto.title,
+        description: dto.description,
+        price: +dto.price,
+        categoryId: +dto.categoryId,
         userId,
+        images: filenames,
       },
+      select: ReturnAdvertisementSelect,
     });
   }
 
@@ -116,6 +125,7 @@ export class AdvertisementsService {
         ...updatedData,
         images: filenames,
       },
+      select: ReturnAdvertisementSelect,
     });
   }
 
@@ -128,6 +138,7 @@ export class AdvertisementsService {
         where: {
           id: dto.id,
         },
+        select: ReturnAdvertisementSelect,
       });
     } else {
       throw new HttpException('No access', HttpStatus.FORBIDDEN);

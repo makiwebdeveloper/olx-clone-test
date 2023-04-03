@@ -5,35 +5,33 @@ import { CreateUserDto } from './dto/create-user.dto';
 import { hash } from 'argon2';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { GiveRoleDto } from './dto/give-role.dto';
-import { UserSelect, UserWithFavorites } from './return-user.object';
+import { ReturnUserSelect } from './return-user.object';
 
 @Injectable()
 export class UsersService {
   constructor(private prisma: PrismaService) {}
 
   async createUser(dto: CreateUserDto) {
-    const user = await this.prisma.user.create({
+    return this.prisma.user.create({
       data: {
         email: dto.email,
         password: await hash(dto.password),
         // roles: ['ADMIN', 'USER'],
       },
     });
-
-    return user;
   }
 
   async getAllUsers() {
-    return await this.prisma.user.findMany({
-      select: {
-        ...UserSelect,
-      },
-    });
+    return this.prisma.user.findMany({ select: ReturnUserSelect });
   }
 
   async getProfile(id: number) {
-    const user = await this.findById(id);
-    return this.returnUserFields(user);
+    return this.prisma.user.findUnique({
+      where: {
+        id,
+      },
+      select: ReturnUserSelect,
+    });
   }
 
   async updateProfile(id: number, dto: UpdateUserDto, avatarPath: string) {
@@ -54,20 +52,17 @@ export class UsersService {
         phone: dto.phone,
         avatarPath,
       },
-      include: {
-        favorites: true,
-      },
+      select: ReturnUserSelect,
     });
 
-    return this.returnUserFields(updatedUser);
+    return updatedUser;
   }
 
   async deleteUser(id: number) {
-    const user = this.prisma.user.delete({
+    return this.prisma.user.delete({
       where: { id },
+      select: ReturnUserSelect,
     });
-
-    return user;
   }
 
   async giveRole(dto: GiveRoleDto) {
@@ -77,20 +72,26 @@ export class UsersService {
       ? user.roles
       : [...user.roles, dto.role];
 
-    return await this.prisma.user.update({
+    return this.prisma.user.update({
       where: {
         id: dto.userId,
       },
       data: {
         roles,
       },
+      select: ReturnUserSelect,
     });
   }
 
   async toggleFavorite(userId: number, advertisementId: number) {
-    const user = await this.findById(userId);
+    const user = await this.prisma.user.findUnique({
+      where: {
+        id: userId,
+      },
+      select: ReturnUserSelect,
+    });
 
-    return await this.prisma.user.update({
+    return this.prisma.user.update({
       where: { id: userId },
       data: {
         favorites: {
@@ -101,32 +102,27 @@ export class UsersService {
           },
         },
       },
-      include: {
-        favorites: true,
-      },
     });
   }
 
-  async findById(id: number): Promise<UserWithFavorites> {
-    const user = await this.prisma.user.findUnique({
+  async findById(id: number): Promise<User> {
+    return this.prisma.user.findUnique({
       where: { id },
-      include: {
-        favorites: true,
-      },
     });
-
-    return user;
   }
 
-  async findByEmail(email: string): Promise<UserWithFavorites> {
+  async findByEmail(email: string): Promise<User> {
     return this.prisma.user.findUnique({
       where: { email },
-      include: { favorites: true },
     });
   }
 
-  returnUserFields(user: User) {
-    const { password, ...restUser } = user;
-    return restUser;
+  async returnUserFields(userId: number) {
+    return this.prisma.user.findUnique({
+      where: {
+        id: userId,
+      },
+      select: ReturnUserSelect,
+    });
   }
 }

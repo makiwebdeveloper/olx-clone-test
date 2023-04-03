@@ -1,10 +1,4 @@
-import { Advertisement, User } from '@prisma/client';
-
-export type UserWithFavorites = User & {
-  favorites: Advertisement[];
-};
-
-export const UserSelect = {
+export const ReturnUserSelect = {
   id: true,
   createdAt: true,
   updatedAt: true,

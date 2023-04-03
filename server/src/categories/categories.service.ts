@@ -3,13 +3,16 @@ import { Category } from '@prisma/client';
 import { PrismaService } from 'src/prisma.service';
 import { CreateCategoryDto } from './dto/create-category.dto';
 import { UpdateCategoryDto } from './dto/update-category.dto';
+import { ReturnCategorySelect } from './return-category.object';
 
 @Injectable()
 export class CategoriesService {
   constructor(private prisma: PrismaService) {}
 
   async getAll() {
-    const categories = await this.prisma.category.findMany();
+    const categories = await this.prisma.category.findMany({
+      select: ReturnCategorySelect,
+    });
 
     return {
       categories,
@@ -22,6 +25,7 @@ export class CategoriesService {
       where: {
         id,
       },
+      select: ReturnCategorySelect,
     });
   }
 
@@ -30,6 +34,7 @@ export class CategoriesService {
       data: {
         name: dto.name,
       },
+      select: ReturnCategorySelect,
     });
   }
 
@@ -41,6 +46,7 @@ export class CategoriesService {
       data: {
         name: dto.name,
       },
+      select: ReturnCategorySelect,
     });
   }
 
@@ -49,6 +55,7 @@ export class CategoriesService {
       where: {
         id,
       },
+      select: ReturnCategorySelect,
     });
   }
 }
