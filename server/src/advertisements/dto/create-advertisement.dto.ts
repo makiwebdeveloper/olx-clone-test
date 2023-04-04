@@ -1,8 +1,6 @@
 import {
-  IsNumber,
   IsOptional,
   IsString,
-  MinLength,
   Validate,
 } from 'class-validator';
 import { IsNumberOrString } from 'src/utils/string-or-number.validator';

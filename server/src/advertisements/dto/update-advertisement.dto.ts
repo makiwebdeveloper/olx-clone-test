@@ -1,10 +1,6 @@
-import { IsNumber, IsOptional, IsString, Validate } from 'class-validator';
-import { IsNumberOrString } from 'src/utils/string-or-number.validator';
+import { IsNumber, IsOptional, IsString } from 'class-validator';
 
 export class UpdateAdvertisementDto {
-  @Validate(IsNumberOrString)
-  id: number | string;
-
   @IsString()
   @IsOptional()
   title?: string;

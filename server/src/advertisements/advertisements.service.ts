@@ -1,10 +1,9 @@
 import { HttpStatus, Injectable } from '@nestjs/common';
 import { BadRequestException, HttpException } from '@nestjs/common/exceptions';
-import { Advertisement, Prisma } from '@prisma/client';
+import { Prisma } from '@prisma/client';
 import { PaginationService } from 'src/pagination/pagination.service';
 import { PrismaService } from 'src/prisma.service';
 import { CreateAdvertisementDto } from './dto/create-advertisement.dto';
-import { DeleteAdvertisementDto } from './dto/delete-advertisement.dto';
 import {
   AdvertisementsSortEnum,
   GetAllAdvertisementsDto,
@@ -109,34 +108,33 @@ export class AdvertisementsService {
 
   async update(
     userId: number,
+    advertisementId: number,
     dto: UpdateAdvertisementDto,
     filenames: string[],
   ) {
-    const { id, ...updatedData } = dto;
-
-    const advertisement = await this.getById(+dto.id);
+    const advertisement = await this.getById(advertisementId);
     if (advertisement.userId !== userId) throw new BadRequestException();
 
     return this.prisma.advertisement.update({
       where: {
-        id: +dto.id,
+        id: advertisementId,
       },
       data: {
-        ...updatedData,
+        ...dto,
         images: filenames,
       },
       select: ReturnAdvertisementSelect,
     });
   }
 
-  async delete(userId: number, dto: DeleteAdvertisementDto) {
-    const advertisement = await this.getById(dto.id);
+  async delete(userId: number, advertisementId: number) {
+    const advertisement = await this.getById(advertisementId);
     const user = await this.usersService.findById(userId);
 
     if (advertisement.userId === userId || user.roles.includes('ADMIN')) {
       return this.prisma.advertisement.delete({
         where: {
-          id: dto.id,
+          id: advertisementId,
         },
         select: ReturnAdvertisementSelect,
       });

@@ -22,8 +22,6 @@ import { editFileName, imageFileFilter } from 'src/utils/file-upload.utils';
 import { GiveRoleDto } from './dto/give-role.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { UsersService } from './users.service';
-import { ToggleFavoriteDto } from './dto/toggle-favorite.dto';
-import { DeleteUserDto } from './dto/delete-user.dto';
 
 @Controller('users')
 export class UsersController {
@@ -71,27 +69,26 @@ export class UsersController {
   @HttpCode(200)
   @Roles('ADMIN')
   @UseGuards(JwtAuthGuard, RolesGuard)
-  @Delete()
-  deleteUser(@Body() dto: DeleteUserDto) {
-    return this.usersService.deleteUser(dto.id);
+  @Delete(':userId')
+  deleteUser(@Param('userId') userId: string) {
+    return this.usersService.deleteUser(+userId);
   }
 
   @HttpCode(200)
   @Roles('ADMIN')
   @UseGuards(JwtAuthGuard, RolesGuard)
-  @Post('/role')
-  giveRole(@Body() dto: GiveRoleDto) {
-    return this.usersService.giveRole(dto);
+  @Post('/role/:userId')
+  giveRole(@Param('userId') userId: string, @Body() dto: GiveRoleDto) {
+    return this.usersService.giveRole(+userId, dto.role);
   }
 
   @HttpCode(200)
-  @Put('/favorites')
+  @Put('/favorites/:advertisementId')
   @UseGuards(JwtAuthGuard)
   toggleFavorite(
     @CurrentUser('id') id: number,
-    @Body() dto: ToggleFavoriteDto,
+    @Param('advertisementId') advertisementId: string,
   ) {
-    console.log('advertisement ID', dto.advertisementId);
-    return this.usersService.toggleFavorite(id, dto.advertisementId);
+    return this.usersService.toggleFavorite(id, +advertisementId);
   }
 }

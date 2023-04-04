@@ -1,5 +1,5 @@
 import { BadRequestException, Injectable } from '@nestjs/common';
-import { Prisma, User } from '@prisma/client';
+import { User } from '@prisma/client';
 import { PrismaService } from 'src/prisma.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { hash } from 'argon2';
@@ -65,16 +65,16 @@ export class UsersService {
     });
   }
 
-  async giveRole(dto: GiveRoleDto) {
-    const user = await this.findById(dto.userId);
+  async giveRole(userId: number, role: string) {
+    const user = await this.findById(userId);
 
-    const roles = user.roles.includes(dto.role)
+    const roles = user.roles.includes(role)
       ? user.roles
-      : [...user.roles, dto.role];
+      : [...user.roles, role];
 
     return this.prisma.user.update({
       where: {
-        id: dto.userId,
+        id: userId,
       },
       data: {
         roles,

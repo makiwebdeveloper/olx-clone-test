@@ -14,7 +14,6 @@ import { Roles } from 'src/auth/decorators/roles.decorator';
 import { RolesGuard } from 'src/auth/decorators/roles.guard';
 import { CategoriesService } from './categories.service';
 import { CreateCategoryDto } from './dto/create-category.dto';
-import { DeleteCategoryDto } from './dto/delete-category.dto';
 import { UpdateCategoryDto } from './dto/update-category.dto';
 
 @Controller('categories')
@@ -44,16 +43,19 @@ export class CategoriesController {
   @HttpCode(200)
   @Roles('ADMIN')
   @UseGuards(JwtAuthGuard, RolesGuard)
-  @Put()
-  updateCategory(@Body() dto: UpdateCategoryDto) {
-    return this.categoriesService.update(dto);
+  @Put(':categoryId')
+  updateCategory(
+    @Param('categoryId') categoryId: string,
+    @Body() dto: UpdateCategoryDto,
+  ) {
+    return this.categoriesService.update(+categoryId, dto.name);
   }
 
   @HttpCode(200)
   @Roles('ADMIN')
   @UseGuards(JwtAuthGuard, RolesGuard)
-  @Delete()
-  deleteCategory(@Body() dto: DeleteCategoryDto) {
-    return this.categoriesService.delete(dto.id);
+  @Delete(':categoryId')
+  deleteCategory(@Param('categoryId') categoryId: string) {
+    return this.categoriesService.delete(+categoryId);
   }
 }

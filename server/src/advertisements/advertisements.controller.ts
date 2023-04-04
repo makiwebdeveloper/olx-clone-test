@@ -16,7 +16,6 @@ import { JwtAuthGuard } from 'src/auth/decorators/jwt.guard';
 import { CurrentUser } from 'src/auth/decorators/user.decorator';
 import { AdvertisementsService } from './advertisements.service';
 import { CreateAdvertisementDto } from './dto/create-advertisement.dto';
-import { DeleteAdvertisementDto } from './dto/delete-advertisement.dto';
 import { GetAllAdvertisementsDto } from './dto/get-all-advertisements.dto';
 import { UpdateAdvertisementDto } from './dto/update-advertisement.dto';
 import { FilesInterceptor } from '@nestjs/platform-express';
@@ -71,23 +70,29 @@ export class AdvertisementsController {
       fileFilter: imageFileFilter,
     }),
   )
-  @Put()
+  @Put(':advertisementId')
   updateAdvertisement(
     @CurrentUser('id') userId: number,
+    @Param('advertisementId') advertisementId: string,
     @Body() dto: UpdateAdvertisementDto,
     @UploadedFiles() files?: Array<Express.Multer.File>,
   ) {
     const filenames: string[] = files.map((file) => file.filename);
-    return this.advertisementsService.update(userId, dto, filenames);
+    return this.advertisementsService.update(
+      userId,
+      +advertisementId,
+      dto,
+      filenames,
+    );
   }
 
   @HttpCode(200)
   @UseGuards(JwtAuthGuard)
-  @Delete()
+  @Delete(':advertisementId')
   deleteAdvertisement(
     @CurrentUser('id') id: number,
-    @Body() dto: DeleteAdvertisementDto,
+    @Param('advertisementId') advertisementId: string,
   ) {
-    return this.advertisementsService.delete(id, dto);
+    return this.advertisementsService.delete(id, +advertisementId);
   }
 }
