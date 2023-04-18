@@ -1,11 +1,7 @@
-import {
-  IsOptional,
-  IsString,
-  Validate,
-} from 'class-validator';
+import { IsOptional, IsString, Validate } from 'class-validator';
 import { IsNumberOrString } from 'src/utils/string-or-number.validator';
 
-export class CreateAdvertisementDto {
+export class CreatePostDto {
   @IsString()
   title: string;
 

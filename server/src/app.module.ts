@@ -6,10 +6,10 @@ import { AuthModule } from './auth/auth.module';
 import { PassportModule } from '@nestjs/passport';
 import { JwtStrategy } from './auth/strategy/jwt.strategy';
 import { MulterModule } from '@nestjs/platform-express';
-import { AdvertisementsModule } from './advertisements/advertisements.module';
 import { CategoriesModule } from './categories/categories.module';
 import { PaginationModule } from './pagination/pagination.module';
 import { AppController } from './app.controler';
+import { PostsModule } from './posts/posts.module';
 
 @Module({
   imports: [
@@ -20,7 +20,7 @@ import { AppController } from './app.controler';
     PassportModule,
     UsersModule,
     AuthModule,
-    AdvertisementsModule,
+    PostsModule,
     CategoriesModule,
     PaginationModule,
   ],

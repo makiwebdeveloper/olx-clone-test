@@ -9,7 +9,7 @@ import { getJwtConfig } from 'src/config/jwt.config';
 import { JwtStrategy } from './strategy/jwt.strategy';
 import { UsersModule } from 'src/users/users.module';
 import { CategoriesModule } from 'src/categories/categories.module';
-import { AdvertisementsModule } from 'src/advertisements/advertisements.module';
+import { PostsModule } from 'src/posts/posts.module';
 
 @Module({
   controllers: [AuthController],
@@ -18,7 +18,7 @@ import { AdvertisementsModule } from 'src/advertisements/advertisements.module';
     ConfigModule,
     forwardRef(() => UsersModule),
     forwardRef(() => CategoriesModule),
-    forwardRef(() => AdvertisementsModule),
+    forwardRef(() => PostsModule),
     JwtModule.registerAsync({
       imports: [ConfigModule],
       inject: [ConfigService],

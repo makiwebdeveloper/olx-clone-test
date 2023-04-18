@@ -1,7 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from 'src/prisma.service';
 import { CreateCategoryDto } from './dto/create-category.dto';
-import { UpdateCategoryDto } from './dto/update-category.dto';
 import { ReturnCategorySelect } from './return-category.object';
 
 @Injectable()
@@ -9,14 +8,9 @@ export class CategoriesService {
   constructor(private prisma: PrismaService) {}
 
   async getAll() {
-    const categories = await this.prisma.category.findMany({
+    return this.prisma.category.findMany({
       select: ReturnCategorySelect,
     });
-
-    return {
-      categories,
-      length: categories.length,
-    };
   }
 
   async getById(id: number) {
