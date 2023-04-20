@@ -1,6 +1,5 @@
 import { HttpStatus, Injectable } from '@nestjs/common';
 import { BadRequestException, HttpException } from '@nestjs/common/exceptions';
-import { Prisma } from '@prisma/client';
 import { PaginationService } from 'src/pagination/pagination.service';
 import { PrismaService } from 'src/prisma.service';
 import { UsersService } from 'src/users/users.service';
@@ -8,6 +7,7 @@ import { GetAllPostsDto, PostsSortEnum } from './dto/get-all-posts.dto';
 import { ReturnPostSelect } from './return-post.object';
 import { CreatePostDto } from './dto/create-post.dto';
 import { UpdatePostDto } from './dto/update-post.dto';
+import { Prisma } from '@prisma/client';
 
 @Injectable()
 export class PostsService {

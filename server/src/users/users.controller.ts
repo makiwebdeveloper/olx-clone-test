@@ -81,4 +81,14 @@ export class UsersController {
   giveRole(@Param('userId') userId: string, @Body() dto: GiveRoleDto) {
     return this.usersService.giveRole(+userId, dto.role);
   }
+
+  @HttpCode(200)
+  @Put('/favorites/:postId')
+  @UseGuards(JwtAuthGuard)
+  toggleFavorite(
+    @CurrentUser('id') id: number,
+    @Param('postId') postId: string,
+  ) {
+    return this.usersService.toggleFavorite(id, +postId);
+  }
 }

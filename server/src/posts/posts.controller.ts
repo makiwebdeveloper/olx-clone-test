@@ -21,14 +21,10 @@ import { GetAllPostsDto } from './dto/get-all-posts.dto';
 import { UpdatePostDto } from './dto/update-post.dto';
 import { CreatePostDto } from './dto/create-post.dto';
 import { PostsService } from './posts.service';
-import { UsersService } from 'src/users/users.service';
 
 @Controller('posts')
 export class PostsController {
-  constructor(
-    private readonly postsService: PostsService,
-    private usersService: UsersService,
-  ) {}
+  constructor(private readonly postsService: PostsService) {}
 
   @UseGuards(JwtAuthGuard)
   @Get()
@@ -90,15 +86,5 @@ export class PostsController {
   @Delete(':postId')
   delete(@CurrentUser('id') id: number, @Param('postId') postId: string) {
     return this.postsService.delete(id, +postId);
-  }
-
-  @HttpCode(200)
-  @Put('/favorites/:postId')
-  @UseGuards(JwtAuthGuard)
-  toggleFavorite(
-    @CurrentUser('id') id: number,
-    @Param('postId') postId: string,
-  ) {
-    return this.usersService.toggleFavorite(id, +postId);
   }
 }
