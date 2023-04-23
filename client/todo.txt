@@ -2,7 +2,7 @@
 [X] - interfaces 
 [X] - api instance
 [X] - Services
-[ ] - store
+[X] - store
 [ ] - provider
 
 [ ] - Auth Page
