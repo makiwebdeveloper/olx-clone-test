@@ -1,0 +1,38 @@
++------------ 1 ------------+
+[ ] - Services
+[ ] - interfaces 
+[ ] - api instance
+[ ] - store
+
+[ ] - Auth Page
+    - Auth Provider
+    - Buttons [white, green]
+    - Input
+
++------------ 2 ------------+
+[ ] - Layout
+    - Header
+    - Meta
+
+[ ] - Home Page
+    - Search Component
+    - Sort Component
+    - Show Posts [grid, column]
+
++------------ 3 ------------+
+[ ] - Profile Page
+    - Search Component
+    - Sort Component
+    - Show Posts
+
++------------ 4 ------------+
+[ ] - Post Page
+
++------------ 5 ------------+
+[ ] - Favorites Page
+
++------------ 6 ------------+
+[ ] - Add post Page
+
++------------ 7 ------------+
+[ ] - Settings
