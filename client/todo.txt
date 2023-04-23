@@ -1,8 +1,9 @@
 +------------ 1 ------------+
-[ ] - Services
-[ ] - interfaces 
-[ ] - api instance
+[X] - interfaces 
+[X] - api instance
+[X] - Services
 [ ] - store
+[ ] - provider
 
 [ ] - Auth Page
     - Auth Provider
