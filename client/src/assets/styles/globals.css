@@ -5,3 +5,7 @@
 .center {
     @apply flex items-center justify-center;
 }
+
+.wcontainer {
+    @apply md:w-4/5 mx-auto px-5 md:px-0;
+}

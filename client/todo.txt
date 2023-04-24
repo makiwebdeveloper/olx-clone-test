@@ -8,9 +8,10 @@
 [X] - Auth Page
     - Buttons [white, green]
     - Input
+[ ] - ADAPTIVE
 
 +------------ 2 ------------+
-[ ] - Layout
+[X] - Layout
     - Header
     - Meta
 

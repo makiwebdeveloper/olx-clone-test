@@ -1,11 +1,8 @@
+import Layout from "@/components/layout/Layout";
 import { FC } from "react";
 
 const Home: FC = () => {
-  return (
-    <main>
-      <h1 className="text-3xl">Home Page</h1>
-    </main>
-  );
+  return <Layout title="Home" description="Olx Clone home page"></Layout>;
 };
 
 export default Home;
