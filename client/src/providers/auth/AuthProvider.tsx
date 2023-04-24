@@ -30,7 +30,7 @@ const AuthProvider: FC<PropsWithChildren<ComponentAuthFieldsType>> = ({
   }, [router.pathname]);
 
   useEffect(() => {
-    if (user && router.pathname === "/auth") router.push("/");
+    if (user && router.pathname === "/auth") router.replace("/");
   }, [user]);
 
   return isUser || isAdmin ? (

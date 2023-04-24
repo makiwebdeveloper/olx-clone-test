@@ -3,10 +3,9 @@
 [X] - api instance
 [X] - Services
 [X] - store
-[ ] - provider
+[X] - provider
 
-[ ] - Auth Page
-    - Auth Provider
+[X] - Auth Page
     - Buttons [white, green]
     - Input
 
