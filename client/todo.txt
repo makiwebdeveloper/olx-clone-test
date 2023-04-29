@@ -16,9 +16,10 @@
     - Meta
 
 [ ] - Home Page
-    - Search Component
-    - Sort Component
-    - Show Posts [grid, column]
+[ ] - Search Component
+[ ] - Sort Component
+[ ] - Pagination
+[ ] - Show Posts [grid, column]
 
 +------------ 3 ------------+
 [ ] - Profile Page

@@ -20,13 +20,11 @@ import { UpdateCategoryDto } from './dto/update-category.dto';
 export class CategoriesController {
   constructor(private readonly categoriesService: CategoriesService) {}
 
-  @UseGuards(JwtAuthGuard)
   @Get()
   getAll() {
     return this.categoriesService.getAll();
   }
 
-  @UseGuards(JwtAuthGuard)
   @Get(':categoryId')
   getCategory(@Param('categoryId') id: string) {
     return this.categoriesService.getById(+id);

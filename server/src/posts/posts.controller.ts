@@ -26,13 +26,11 @@ import { PostsService } from './posts.service';
 export class PostsController {
   constructor(private readonly postsService: PostsService) {}
 
-  @UseGuards(JwtAuthGuard)
   @Get()
   getAll(@Query() dto: GetAllPostsDto) {
     return this.postsService.getAll(dto);
   }
 
-  @UseGuards(JwtAuthGuard)
   @Get(':postId')
   getOne(@Param('postId') id: string) {
     return this.postsService.getById(Number(id));
