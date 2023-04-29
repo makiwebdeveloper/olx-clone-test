@@ -1,5 +1,7 @@
 import Layout from "@/components/layout/Layout";
-import { Search, Sort } from "@/components/ui";
+import { Pagination, Search, Sort } from "@/components/ui";
+import { useActions } from "@/hooks/useActions";
+import { useTypedSelector } from "@/hooks/useTypedSelector";
 import { ICategory } from "@/interfaces/category.interface";
 import { PostsSortEnum } from "@/services/posts/posts.types";
 import { FC, useState } from "react";
@@ -8,6 +10,11 @@ const Home: FC<{ categories: ICategory[] }> = ({ categories }) => {
   const [searchTerm, setSearchTerm] = useState("");
   const [categoryId, setCategoryId] = useState<number | null>(null);
   const [sortType, setSortType] = useState<PostsSortEnum | null>(null);
+
+  const { currentPage, perPage } = useTypedSelector(
+    (state) => state.pagination
+  );
+  const { setCurrentPage } = useActions();
 
   console.table({ searchTerm, categoryId, sortType });
 
@@ -27,6 +34,14 @@ const Home: FC<{ categories: ICategory[] }> = ({ categories }) => {
         categories={categories}
         restStyles="pt-8"
       />
+      <div className="flex justify-center my-8">
+        <Pagination
+          currentPage={currentPage}
+          dataLength={100}
+          perPage={perPage}
+          onPageChange={(page) => setCurrentPage(page)}
+        />
+      </div>
     </Layout>
   );
 };

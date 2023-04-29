@@ -16,9 +16,9 @@
     - Meta
 
 [ ] - Home Page
-[ ] - Search Component
-[ ] - Sort Component
-[ ] - Pagination
+[X] - Search Component
+[X] - Sort Component
+[X] - Pagination
 [ ] - Show Posts [grid, column]
 
 +------------ 3 ------------+
