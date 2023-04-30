@@ -1,8 +1,8 @@
-import { IsString, IsNumber } from 'class-validator';
+import { IsNumber, IsEnum } from 'class-validator';
 
 export class GiveRoleDto {
-  @IsString()
-  role: string;
+  @IsEnum(['ADMIN'])
+  role: 'ADMIN';
 
   @IsNumber()
   userId: number;

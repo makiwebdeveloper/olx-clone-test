@@ -73,6 +73,7 @@ export class PostsService {
         title: dto.title,
         description: dto.description,
         price: +dto.price,
+        currency: dto.currency,
         categoryId: +dto.categoryId,
         userId,
         images: filenames,

@@ -4,7 +4,6 @@ import { PrismaService } from 'src/prisma.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { hash } from 'argon2';
 import { UpdateUserDto } from './dto/update-user.dto';
-import { GiveRoleDto } from './dto/give-role.dto';
 import { ReturnUserSelect } from './return-user.object';
 
 @Injectable()

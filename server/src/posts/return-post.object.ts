@@ -9,6 +9,7 @@ export const ReturnPostSelect: Prisma.PostSelect = {
   title: true,
   description: true,
   price: true,
+  currency: true,
   images: true,
   category: {
     select: ReturnCategorySelect,

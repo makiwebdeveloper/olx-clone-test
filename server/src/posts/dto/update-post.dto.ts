@@ -1,4 +1,5 @@
 import { IsNumber, IsOptional, IsString } from 'class-validator';
+import { CurrencyType } from './create-post.dto';
 
 export class UpdatePostDto {
   @IsString()
@@ -12,6 +13,10 @@ export class UpdatePostDto {
   @IsNumber()
   @IsOptional()
   price?: number;
+
+  @IsString()
+  @IsOptional()
+  currency: CurrencyType;
 
   @IsNumber()
   @IsOptional()

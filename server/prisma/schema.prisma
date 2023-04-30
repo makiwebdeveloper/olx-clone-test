@@ -34,6 +34,7 @@ model Post {
   title       String
   description String   @default("")
   price       Int
+  currency    Currency @default(UAH)
   images      String[]
   category    Category @relation(fields: [categoryId], references: [id])
   categoryId  Int      @map("category_id")
@@ -51,4 +52,10 @@ model Category {
 
   name  String
   posts Post[]
+}
+
+enum Currency {
+  USD
+  EUR
+  UAH
 }
