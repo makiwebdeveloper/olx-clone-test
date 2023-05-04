@@ -22,8 +22,8 @@ model User {
   phone      String   @default("")
   roles      String[] @default(["USER"])
 
-  posts     Post[] @relation("posts")
-  favorites Post[]
+  posts           Post[]            @relation("posts")
+  FavoriteProduct FavoriteProduct[]
 }
 
 model Post {
@@ -39,10 +39,9 @@ model Post {
   category    Category @relation(fields: [categoryId], references: [id])
   categoryId  Int      @map("category_id")
 
-  user   User? @relation(name: "posts", fields: [userId], references: [id])
-  userId Int?  @map("user_id")
-
-  favorites User[]
+  user            User?             @relation(name: "posts", fields: [userId], references: [id])
+  userId          Int?              @map("user_id")
+  FavoriteProduct FavoriteProduct[]
 }
 
 model Category {
@@ -52,6 +51,15 @@ model Category {
 
   name  String
   posts Post[]
+}
+
+model FavoriteProduct {
+  id Int @id @default(autoincrement())
+
+  user   User @relation(fields: [userId], references: [id])
+  userId Int  @map("user_id")
+  post   Post @relation(fields: [postId], references: [id])
+  postId Int  @map("post_id")
 }
 
 enum Currency {
