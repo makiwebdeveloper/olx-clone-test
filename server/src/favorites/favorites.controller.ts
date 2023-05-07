@@ -27,6 +27,6 @@ export class FavoritesController {
     @CurrentUser('id') id: number,
     @Param('postId') postId: string,
   ) {
-    this.favoritesService.toggleFavorite(id, +postId);
+    return this.favoritesService.toggleFavorite(id, +postId);
   }
 }

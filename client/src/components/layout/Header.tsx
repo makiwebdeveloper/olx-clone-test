@@ -1,6 +1,5 @@
 import { FC } from "react";
-import { useAuth } from "@/hooks/useAuth";
-import { useSSR } from "@/hooks/useSSR";
+import { useAuth, useSSR } from "@/hooks";
 import Image from "next/image";
 import Link from "next/link";
 import { BsBalloonHeart } from "react-icons/bs";

@@ -1,7 +1,8 @@
 import { ErrorPopup, Meta } from "@/components/ui";
-import { useAuth } from "@/hooks/useAuth";
+import { useAuth } from "@/hooks";
 import { FC, useState } from "react";
 import Form from "./Form";
+import { nunito } from "@/components/layout/Layout";
 
 const buttons: { type: "login" | "registration"; title: string }[] = [
   { type: "login", title: "Увійти" },
@@ -16,7 +17,9 @@ const Auth: FC = () => {
   return (
     <>
       <Meta title="Auth" />
-      <main className="w-screen h-screen center bg-cyan-600">
+      <main
+        className={`w-screen h-screen center bg-cyan-600 ${nunito.className}`}
+      >
         <article className="bg-white p-5 rounded shadow-lg w-[300px]">
           <div className="flex">
             {buttons.map((btn) => (

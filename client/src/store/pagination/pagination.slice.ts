@@ -7,7 +7,7 @@ interface IPaginationState {
 
 const initialState: IPaginationState = {
   currentPage: 1,
-  perPage: 8,
+  perPage: 2,
 };
 
 export const paginationSlice = createSlice({

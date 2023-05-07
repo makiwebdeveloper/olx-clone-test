@@ -1,7 +1,7 @@
 import { FC, PropsWithChildren } from "react";
 import { ComponentAuthFieldsType } from "./auth-page.types";
 import { useRouter } from "next/router";
-import { useAuth } from "@/hooks/useAuth";
+import { useAuth } from "@/hooks";
 
 const CheckRole: FC<PropsWithChildren<ComponentAuthFieldsType>> = ({
   Component: { isUser, isAdmin },

@@ -1,8 +1,11 @@
+import { CurrencyEnum } from "@/interfaces/post.interface";
+
 export type DataType = {
   title?: string;
   description?: string;
-  price?: string;
-  categoryId?: number | string;
+  price?: number;
+  currency?: CurrencyEnum;
+  categoryId?: number;
   files?: File[];
 };
 

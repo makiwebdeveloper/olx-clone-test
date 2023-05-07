@@ -42,5 +42,7 @@ export class FavoritesService {
         },
       });
     }
+
+    return this.getFavorites(userId);
   }
 }

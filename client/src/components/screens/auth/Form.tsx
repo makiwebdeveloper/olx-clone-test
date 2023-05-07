@@ -1,7 +1,7 @@
 import { FC } from "react";
 import { Formik } from "formik";
 import { Button, Input } from "@/components/ui";
-import { useActions } from "@/hooks/useActions";
+import { useActions } from "@/hooks";
 import * as Yup from "yup";
 
 interface Props {

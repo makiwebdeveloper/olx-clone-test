@@ -1,8 +1,7 @@
 import dynamic from "next/dynamic";
 import { FC, PropsWithChildren, useEffect } from "react";
 import { ComponentAuthFieldsType } from "./auth-page.types";
-import { useAuth } from "@/hooks/useAuth";
-import { useActions } from "@/hooks/useActions";
+import { useAuth, useActions } from "@/hooks";
 import { useRouter } from "next/router";
 import StorageService from "@/services/storage.service";
 

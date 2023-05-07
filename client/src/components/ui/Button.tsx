@@ -22,7 +22,9 @@ const Button: FC<PropsWithChildren<Props>> = ({
       className={`transition rounded font-semibold ${
         p ? p : border ? "px-4 py-1" : "px-5 py-2"
       } ${
-        white
+        rest.disabled
+          ? "bg-gray-300 text-gray-500 cursor-not-allowed"
+          : white
           ? `bg-white text-teal-900 hover:bg-teal-900 hover:text-white ${
               border ? "border-4 border-teal-900" : ""
             }`

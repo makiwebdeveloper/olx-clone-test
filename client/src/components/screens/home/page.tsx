@@ -1,10 +1,11 @@
 import Layout from "@/components/layout/Layout";
-import { Pagination, Search, Sort } from "@/components/ui";
-import { useActions } from "@/hooks/useActions";
-import { useTypedSelector } from "@/hooks/useTypedSelector";
+import { FC, useEffect, useState } from "react";
+import { Loader, Pagination, PostsList, Search, Sort } from "@/components/ui";
+import { usePosts } from "@/hooks/queries";
+import { useActions, useTypedSelector } from "@/hooks";
 import { ICategory } from "@/interfaces/category.interface";
 import { PostsSortEnum } from "@/services/posts/posts.types";
-import { FC, useState } from "react";
+import { scroll } from "@/utils/scroll";
 
 const Home: FC<{ categories: ICategory[] }> = ({ categories }) => {
   const [searchTerm, setSearchTerm] = useState("");
@@ -16,14 +17,29 @@ const Home: FC<{ categories: ICategory[] }> = ({ categories }) => {
   );
   const { setCurrentPage } = useActions();
 
-  console.table({ searchTerm, categoryId, sortType });
+  const { posts, postsLength, isLoading, refetch, isPreviousData } = usePosts({
+    currentPage,
+    searchTerm,
+    categoryId,
+    sortType,
+    perPage,
+  });
+
+  const refetchHandler = () => {
+    setCurrentPage(1);
+    refetch();
+  };
+
+  useEffect(() => {
+    scroll("header");
+  }, [currentPage]);
 
   return (
     <Layout title="Home" description="Olx Clone home page" container>
       <Search
         value={searchTerm}
         setValue={setSearchTerm}
-        onClick={() => {}}
+        onClick={refetchHandler}
         restStyles="pt-8"
       />
       <Sort
@@ -34,14 +50,25 @@ const Home: FC<{ categories: ICategory[] }> = ({ categories }) => {
         categories={categories}
         restStyles="pt-8"
       />
-      <div className="flex justify-center my-8">
-        <Pagination
-          currentPage={currentPage}
-          dataLength={100}
-          perPage={perPage}
-          onPageChange={(page) => setCurrentPage(page)}
-        />
-      </div>
+      {isLoading ? (
+        <Loader />
+      ) : (
+        posts &&
+        postsLength && (
+          <>
+            <PostsList posts={posts} />
+            <div className="flex justify-center">
+              <Pagination
+                currentPage={currentPage}
+                dataLength={postsLength}
+                perPage={perPage}
+                onPageChange={(page) => setCurrentPage(page)}
+                isPreviousData={isPreviousData}
+              />
+            </div>
+          </>
+        )
+      )}
     </Layout>
   );
 };

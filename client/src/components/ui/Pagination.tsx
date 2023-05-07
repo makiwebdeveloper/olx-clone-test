@@ -55,23 +55,25 @@ const Pagination: FC<IProps> = ({
           <MdNavigateBefore className="text-lg sm:text-2xl" />
         </Button>
       </li>
-      {paginationRange.map((pageNumber) =>
-        pageNumber === DOTS ? (
-          <li className="w-8 sm:w-10 h-10 center">&#8230;</li>
-        ) : (
-          <li
-            key={pageNumber}
-            className={`w-8 h-8 sm:w-10 sm:h-10 cursor-pointer center rounded font-semibold transition ${
-              currentPage === pageNumber
-                ? "bg-teal-900 text-white hover:bg-teal-800"
-                : "bg-gray-200 hover:bg-gray-300"
-            }`}
-            onClick={() => onPageChange(+pageNumber)}
-          >
-            {pageNumber}
-          </li>
-        )
-      )}
+      {paginationRange.map((pageNumber, index) => (
+        <li key={index}>
+          {pageNumber === DOTS ? (
+            <span className="w-8 sm:w-10 h-10 center">&#8230;</span>
+          ) : (
+            <span
+              key={pageNumber}
+              className={`w-8 h-8 sm:w-10 sm:h-10 cursor-pointer center rounded font-semibold transition ${
+                currentPage === pageNumber
+                  ? "bg-teal-900 text-white hover:bg-teal-800"
+                  : "bg-gray-200 hover:bg-gray-300"
+              }`}
+              onClick={() => onPageChange(+pageNumber)}
+            >
+              {pageNumber}
+            </span>
+          )}
+        </li>
+      ))}
       <li>
         <Button
           onClick={next}

@@ -3,7 +3,7 @@ import { IUser } from "@/interfaces/user.interface";
 
 const url = "/users";
 
-export const UsersService = {
+const UsersService = {
   async toggleFavorite(postId: number) {
     return $api<IUser>({
       url: `${url}/favorites/${postId}`,
@@ -11,3 +11,5 @@ export const UsersService = {
     });
   },
 };
+
+export default UsersService;

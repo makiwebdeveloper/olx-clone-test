@@ -7,21 +7,18 @@ import { Provider } from "react-redux";
 import { useState } from "react";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
+export const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      refetchOnWindowFocus: false,
+    },
+  },
+});
+
 export default function App({
   Component,
   pageProps,
 }: AppProps & ComponentAuthFieldsType) {
-  const [queryClient] = useState(
-    () =>
-      new QueryClient({
-        defaultOptions: {
-          queries: {
-            refetchOnWindowFocus: false,
-          },
-        },
-      })
-  );
-
   return (
     <QueryClientProvider client={queryClient}>
       <Provider store={store}>

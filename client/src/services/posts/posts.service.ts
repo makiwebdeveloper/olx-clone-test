@@ -4,7 +4,7 @@ import { IPost } from "@/interfaces/post.interface";
 
 const url = "/posts";
 
-export const PostsService = {
+const PostsService = {
   async getAll(queryData: DataFiltersType = {}) {
     return $api<{ posts: IPost[]; length: number }>({
       url: `${url}`,
@@ -43,3 +43,5 @@ export const PostsService = {
     });
   },
 };
+
+export default PostsService;
