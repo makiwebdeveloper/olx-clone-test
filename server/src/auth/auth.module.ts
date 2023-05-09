@@ -11,10 +11,17 @@ import { UsersModule } from 'src/users/users.module';
 import { CategoriesModule } from 'src/categories/categories.module';
 import { PostsModule } from 'src/posts/posts.module';
 import { FavoritesModule } from 'src/favorites/favorites.module';
+import { TokensService } from 'src/tokens/tokens.service';
 
 @Module({
   controllers: [AuthController],
-  providers: [AuthService, PrismaService, UsersService, JwtStrategy],
+  providers: [
+    AuthService,
+    PrismaService,
+    UsersService,
+    JwtStrategy,
+    TokensService,
+  ],
   imports: [
     ConfigModule,
     forwardRef(() => UsersModule),

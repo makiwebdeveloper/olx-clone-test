@@ -11,6 +11,7 @@ import { PaginationModule } from './pagination/pagination.module';
 import { AppController } from './app.controler';
 import { PostsModule } from './posts/posts.module';
 import { FavoritesModule } from './favorites/favorites.module';
+import { TokensModule } from './tokens/tokens.module';
 
 @Module({
   imports: [
@@ -25,6 +26,7 @@ import { FavoritesModule } from './favorites/favorites.module';
     CategoriesModule,
     PaginationModule,
     FavoritesModule,
+    TokensModule,
   ],
   controllers: [AppController],
   providers: [PrismaService, JwtStrategy],
