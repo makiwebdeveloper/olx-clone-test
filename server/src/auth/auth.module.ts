@@ -10,6 +10,7 @@ import { JwtStrategy } from './strategy/jwt.strategy';
 import { UsersModule } from 'src/users/users.module';
 import { CategoriesModule } from 'src/categories/categories.module';
 import { PostsModule } from 'src/posts/posts.module';
+import { FavoritesModule } from 'src/favorites/favorites.module';
 
 @Module({
   controllers: [AuthController],
@@ -19,6 +20,7 @@ import { PostsModule } from 'src/posts/posts.module';
     forwardRef(() => UsersModule),
     forwardRef(() => CategoriesModule),
     forwardRef(() => PostsModule),
+    forwardRef(() => FavoritesModule),
     JwtModule.registerAsync({
       imports: [ConfigModule],
       inject: [ConfigService],

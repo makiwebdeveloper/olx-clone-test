@@ -4,7 +4,6 @@ import { PrismaService } from 'src/prisma.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { hash } from 'argon2';
 import { UpdateUserDto } from './dto/update-user.dto';
-import { GiveRoleDto } from './dto/give-role.dto';
 import { ReturnUserSelect } from './return-user.object';
 
 @Injectable()
@@ -78,29 +77,6 @@ export class UsersService {
       },
       data: {
         roles,
-      },
-      select: ReturnUserSelect,
-    });
-  }
-
-  async toggleFavorite(userId: number, advertisementId: number) {
-    const user = await this.prisma.user.findUnique({
-      where: {
-        id: userId,
-      },
-      select: ReturnUserSelect,
-    });
-
-    return this.prisma.user.update({
-      where: { id: userId },
-      data: {
-        favorites: {
-          [user.favorites.some((item) => item.id === advertisementId)
-            ? 'disconnect'
-            : 'connect']: {
-            id: advertisementId,
-          },
-        },
       },
       select: ReturnUserSelect,
     });

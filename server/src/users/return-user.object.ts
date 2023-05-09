@@ -7,5 +7,4 @@ export const ReturnUserSelect = {
   avatarPath: true,
   phone: true,
   roles: true,
-  favorites: true,
 };

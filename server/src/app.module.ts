@@ -10,6 +10,7 @@ import { CategoriesModule } from './categories/categories.module';
 import { PaginationModule } from './pagination/pagination.module';
 import { AppController } from './app.controler';
 import { PostsModule } from './posts/posts.module';
+import { FavoritesModule } from './favorites/favorites.module';
 
 @Module({
   imports: [
@@ -23,6 +24,7 @@ import { PostsModule } from './posts/posts.module';
     PostsModule,
     CategoriesModule,
     PaginationModule,
+    FavoritesModule,
   ],
   controllers: [AppController],
   providers: [PrismaService, JwtStrategy],
